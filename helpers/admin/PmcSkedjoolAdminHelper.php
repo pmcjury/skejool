@@ -1,7 +1,7 @@
 <?php
 
 function get_posts_drop_down( $value = '' ){
-    query_posts( array( 'category_name' => 'Mens match reports' ) );
+    query_posts( array ('category__in' => array( 8, 10, 13 ) ) );
     if (have_posts()) : 
         ?> 
         <select name="pmc_schedule_data_related_post[]" >
