@@ -1,5 +1,7 @@
 #schedule_table a, a:visited{color: #000; text-decoration: underline;}
 #schedule_table .schedule_table_body_row_alt a{color:#fff}
+#schedule_table .schedule_table_body_row_past a{color:#555}
+#schedule_table .schedule_table_body_row_past_alt a{color:#555}
 #schedule_table a:hover{color: #C00; text-decoration: underline;}
 
 .schedule_table{width: 100%; border-bottom: 1px solid #121212; border-right: 1px solid #121212; margin-bottom: 5px;}
@@ -21,6 +23,17 @@
 .schedule_table_body_row{ background-color: #efefef; }
 .schedule_table_body_row_alt{ background-color: #333;}
 .schedule_table_body_row_alt .schedule_table_body_cell{ color: #fff;}
+
+.schedule_table_body_row_current{ background-color: #fff; }
+.schedule_table_body_row_current .schedule_table_body_cell{ color: #A00; font-size: 18px; padding: 15px; text-align: center }
+
+
+.schedule_table_body_row_past{ background-color: #dfdfdf;}
+.schedule_table_body_row_past_alt{ background-color: #aaa;}
+
+.schedule_table_body_row_past .schedule_table_body_cell{ color: #888;}
+.schedule_table_body_row_past_alt .schedule_table_body_cell{ color: #888;}
+
 .schedule_table_body_cell{ color:#000; font-size: 12px;}
 .schedule_table_body_cell_link{ text-decoration: underline; font-weight: normal;}
 .schedule_table_body_cell_span{}
@@ -35,3 +48,19 @@ ul#schedule_list li.game_li_alt{ background-color: #333; color:#fff; }
 ul#schedule_list div.schedule_list_left{  text-align: left; float: left;}
 ul#schedule_list div.schedule_list_right{  text-align: right;}
 ul#schedule_list li span.schedule_list_date { font-size: 14px; margin-right: 15px; }
+
+.schedule_next_game{ border:1px solid #C00; font-size: 22px; color:#A00; background-color: #FFF; padding:20px; margin: 0 0 10px 0; }
+
+#schedule_divs{ background-color: #fff; padding: 15px;}
+#schedule_divs h3.week_date{ font-weight:bold; font-size:20px; padding-bottom:10px}
+#schedule_divs .schedule_game_div{ padding:5px 5px;  border-bottom: 1px solid #999; }
+#schedule_divs .schedule_game_info{ float: left; text-align: left; width:330px; padding-left:15px}
+#schedule_divs .schedule_game_opponent{  font-weight: bold; font-size: 18px; padding:0 0 10px 0;}
+#schedule_divs .schedule_game_date{ font-weight: bold; font-size: 14px; padding:10px 0;}
+#schedule_divs .schedule_game_venue{ font-size: 14px; padding:10px 0;}
+#schedule_divs .schedule_game_result{ font-size: 14px; padding:10px 0 0 0; text-align: left;}
+#schedule_divs .schedule_game_result_record{ font-size: 42px; padding:0 0 0 0; text-align: left;}
+#schedule_divs .win{ color: #0A0; font-weight: bold; }
+#schedule_divs .loss{ color: #A00; }
+#schedule_divs .draw{ }
+#schedule_divs .next_game{ background: url(images/current-game-bg.png) repeat-x bottom; }

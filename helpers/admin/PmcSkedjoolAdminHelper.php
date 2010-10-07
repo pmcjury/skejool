@@ -4,7 +4,7 @@ function get_posts_drop_down( $value = '' ){
     query_posts( array ('category__in' => array( 8, 10, 13 ) ) );
     if (have_posts()) : 
         ?> 
-        <select name="pmc_schedule_data_related_post[]" >
+<select name="pmc_schedule_data_related_post[]" style="width:150px;" >
             <option value="">None</option>
         <?php
         while (have_posts()) :

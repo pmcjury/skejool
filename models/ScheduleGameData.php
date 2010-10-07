@@ -67,6 +67,18 @@ class ScheduleGameData{
 
     private function map_data_from_post_meta(){
         $this->games = $this->data;
+        $this->setCurrentGame();
+    }
+
+    private function setCurrentGame(){
+        if( count( $this->games ) > 1 ){
+            foreach( $this->games as $index => $game ){
+                if ( !( strtotime( $game->date ) < time() ) ){
+                    $game->isCurrentGame = true;
+                    break;
+                }
+            }
+        }
     }
 
 }
@@ -84,14 +96,24 @@ class ScheduleGame{
     public $location;
     public $related_post;
     public $friends_and_family;
+    public $isCurrentGame = false;
+    public $image_src;
     public static $game_input_fields = array( 'date' => 'date', 'home_team' => 'home_team', 'home_team_score' => 'home_team_score', 'away_team' => 'away_team', 'away_team_score' => 'away_team_score',
-        'location' => 'location', 'related_post' => 'related_post', 'friends_and_family' => 'friends_and_family' );
+        'location' => 'location', 'related_post' => 'related_post', 'friends_and_family' => 'friends_and_family', 'image_src' => 'image_src' );
 
     public function __construct( $args = array( ) ){
         // auto map
         foreach( $args as $key => $value ){
             $this->$key = $value;
         }
+    }
+
+    public function isPast(){
+        return strtotime( $this->date ) < time();
+    }
+
+    public function isCurrentGame(){
+        return $this->isCurrentGame;
     }
 
 }
