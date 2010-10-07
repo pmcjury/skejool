@@ -62,7 +62,7 @@ function display_schedule_as_divs( $schedule, $args = array( ) ){
                 <div class="schedule_game_info">
                     <div class="schedule_game_opponent"><?php get_vlrfc_opponent( $game ); ?></div>
                     <div class="schedule_game_date"><?php get_game_date( $game->date);?></div>
-                    <div class="schedule_game_venue">Venue: <?php echo $game->location; ?></div>
+                    <div class="schedule_game_venue"><?php get_venue_link( $game->location ) ; ?></div>
                     <div class="clear"></div>
                 </div>
                 <div class="clear"></div>
@@ -77,7 +77,7 @@ function display_schedule_as_divs( $schedule, $args = array( ) ){
                 <div class="schedule_game_info">
                     <div class="schedule_game_opponent"><?php get_vlrfc_opponent( $game ); ?></div>
                     <div class="schedule_game_date"><?php get_game_date( $game->date);?></div>
-                    <div class="schedule_game_venue">Venue: <a href="<?php echo $game->location; ?>"><?php echo $game->location; ?></a></div>
+                    <div class="schedule_game_venue"><?php get_venue_link( $game->location ) ; ?></div>
                     
                     <div class="clear"></div>
                 </div>
@@ -94,6 +94,11 @@ function display_schedule_as_divs( $schedule, $args = array( ) ){
             </div>
         <?php endforeach; ?>
     </div>
+    <?php
+}
+function get_venue_link( $url ){
+    ?>
+    <a href="<?php echo $url; ?>">Venue Directions &raquo;</a>
     <?php
 }
 function get_week_anchor_links( $count ){
