@@ -86,7 +86,7 @@ function display_schedule_as_divs( $schedule, $args = array( ) ){
                          <?php $record = get_win_loss_or_draw( $game, $record ); ?>
                     </div>
                     <div class="schedule_game_result">
-                        <?php echo $record['wins'] . ' - ' . $record['losses'] . ' - ' . $record['draws']; ?>
+                        <?php get_record( $game, $record );?>
                     </div>
                     <div class="clear"></div>
                 </div>
@@ -95,6 +95,11 @@ function display_schedule_as_divs( $schedule, $args = array( ) ){
         <?php endforeach; ?>
     </div>
     <?php
+}
+function get_record( $game, $record ){
+    if( !empty( $game->away_team_score ) && !empty( $game->home_team_score ) ){
+        echo $s = $game->type != 'Friendly' ? $record['wins'] . ' - ' . $record['losses'] . ' - ' . $record['draws'] : 'Friendly';
+    }
 }
 function get_venue_link( $url ){
     ?>
@@ -125,35 +130,49 @@ function get_opponent_icon( $game ){
 function get_win_loss_or_draw( $game, $record ){
     if( !empty( $game->away_team_score ) && !empty( $game->home_team_score ) ){
         $is_home = stristr( $game->home_team, 'vlrfc' );
+        $is_friendly = $game->type == 'Friendly';
         if( $is_home ){
             if( $game->home_team_score > $game->away_team_score ){
                 echo '<span class="win">Win ' . $game->home_team_score . ' - ' . $game->away_team_score  . '</span>';
-                $record['wins']++;
+                if( !$is_friendly ) {
+                    $record['wins']++;
+                }
             }
             else if( $game->home_team_score < $game->away_team_score ){
-                echo '<span class="win">Loss ' . $game->away_team_score . ' - ' . $game->home_team_score  . '</span>';
-                $record['losses']++;
+                echo '<span class="loss">Loss ' . $game->away_team_score . ' - ' . $game->home_team_score  . '</span>';
+               if( !$is_friendly ) {
+                    $record['losses']++;
+                }
             }
             else{
                 echo '<span class="draw">Draw ' . $game->home_team_score . ' - ' . $game->away_team_score  . '</span>';
-                $record['draws']++;
+                if( !$is_friendly ) {
+                    $record['draws']++;
+                }
             }
         }
         else{
             if( $game->home_team_score > $game->away_team_score ){
                 echo '<span class="loss">Loss ' . $game->home_team_score . ' - ' . $game->away_team_score  . '</span>';
-                $record['losses']++;
+                if( !$is_friendly ) {
+                    $record['losses']++;
+                }
             }
             else if( $game->home_team_score < $game->away_team_score ){
                 echo '<span class="win">Win ' . $game->away_team_score . ' - ' . $game->home_team_score  . '</span>';
-                $record['wins']++;
+                 if( !$is_friendly ) {
+                    $record['wins']++;
+                }
             }
             else{
                 echo '<span class="draw">Draw ' . $game->home_team_score . ' - ' . $game->away_team_score  . '</span>';
-                $record['draws']++;
+                if( !$is_friendly ) {
+                    $record['draws']++;
+                }
             }
         }
     }
+  
     return $record;
 }
 function get_game_date( $date, $format = 'l, m/d' ){

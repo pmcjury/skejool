@@ -99,7 +99,7 @@ class ScheduleGame{
     public $isCurrentGame = false;
     public $image_src;
     public static $game_input_fields = array( 'date' => 'date', 'home_team' => 'home_team', 'home_team_score' => 'home_team_score', 'away_team' => 'away_team', 'away_team_score' => 'away_team_score',
-        'location' => 'location', 'related_post' => 'related_post', 'friends_and_family' => 'friends_and_family', 'image_src' => 'image_src' );
+        'location' => 'location', 'related_post' => 'related_post', 'friends_and_family' => 'friends_and_family', 'image_src' => 'image_src', 'type'=>'type' );
 
     public function __construct( $args = array( ) ){
         // auto map

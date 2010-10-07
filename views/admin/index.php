@@ -61,6 +61,14 @@
                             <label for="pmc_schedule_data_location" ><strong>Map or Direction URL </strong></label>
                                 <br/>
                             <input type="text" name="pmc_schedule_data_location[]" value="<?php echo $game->location; ?>" maxlength="45" size="16" class="" />
+                            <div class="row-actionss">
+                                <label for="pmc_schedule_data_type" ><strong>Type </strong></label>
+                                <br/>
+                                <select name="pmc_schedule_data_type[]" >
+                                    <option value="League" <?php  selected( $game->type, 'League' );?>>League</option>
+                                    <option value="Friendly" <?php  selected( $game->type, 'Friendly' );?>>Friendly</option>
+                                </select>
+                            </div>
                         </td>
                         <td>
                             <label for="pmc_schedule_data_related_post" ><strong>Link URL </strong></label>
