@@ -97,7 +97,7 @@ function display_schedule_as_divs( $schedule, $args = array( ) ){
     <?php
 }
 function get_record( $game, $record ){
-    if( !empty( $game->away_team_score ) && !empty( $game->home_team_score ) ){
+    if( is_game_played( $game->away_team_score, $game->home_team_score, $game->date ) ){
         echo $s = $game->type != 'Friendly' ? $record['wins'] . ' - ' . $record['losses'] . ' - ' . $record['draws'] : 'Friendly';
     }
 }
@@ -127,8 +127,11 @@ function get_opponent_icon( $game ){
         echo 'http://www.villagelions.org/wp-content/uploads/2010/09/lion_avatar-150x150.png';
     }
 }
+function is_game_played( $score_1, $score_2, $game_date ){
+    return ( $score_1 != ''  && $score_2 != '' );
+}
 function get_win_loss_or_draw( $game, $record ){
-    if( !empty( $game->away_team_score ) && !empty( $game->home_team_score ) ){
+    if( is_game_played( $game->away_team_score, $game->home_team_score, $game->date ) ){
         $is_home = stristr( $game->home_team, 'vlrfc' );
         $is_friendly = $game->type == 'Friendly';
         if( $is_home ){
