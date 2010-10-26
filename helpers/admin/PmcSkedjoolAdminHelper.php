@@ -16,28 +16,35 @@ class PmcSkedjoolAdminHelper{
         extract ( array_merge( $default_args, $arguments) );
         if( !isset( $this->posts_drop_down_html ) ){
             $cats = $this->get_the_related_posts_cats();
-            $args = array(
-                    'category__in' => $cats,
-                    'orderby' => 'date',
-                    'order' => $order,
-                    'paged' => false,
-                    'posts_per_page' => $posts_per_page,
-                    'caller_get_posts' => $do_not_show_stickies
-            );
-            $temp = $wp_query;
-            $wp_query = new WP_Query( $args );
-            $this->posts_drop_down_html = '
-            <select name="pmc_schedule_data_related_post[]" style="width:150px;" >
-                <option value="">None</option>';
-            if ( have_posts() ) :
-                while ( have_posts() ) : the_post(); 
-                    $this->posts_drop_down_html .= 
-                            '<option value="' . get_permalink() . '" ' . selected( get_permalink(), $value, false ) . '>' . get_the_title() . ' ( ' . get_the_category() . ') </option>';
-                endwhile;
-            endif;
-            $this->posts_drop_down_html .= '
-                </select>';
-            $wp_query = $temp;
+            if( count( $cats ) > 0 ){
+                $args = array(
+                        'category__in' => $cats,
+                        'orderby' => 'date',
+                        'order' => $order,
+                        'paged' => false,
+                        'posts_per_page' => $posts_per_page,
+                        'caller_get_posts' => $do_not_show_stickies
+                );
+                $temp = $wp_query;
+                $wp_query = new WP_Query( $args );
+                $this->posts_drop_down_html = '
+                <select name="pmc_schedule_data_related_post[]" style="width:150px;" >
+                    <option value="">None</option>';
+                if ( have_posts() ) :
+                    while ( have_posts() ) : the_post();
+                        $this->posts_drop_down_html .=
+                                '<option value="' . get_permalink() . '" ' . selected( get_permalink(), $value, false ) . '>' . get_the_title() . ' </option>';
+                    endwhile;
+                endif;
+                $this->posts_drop_down_html .= '
+                    </select>';
+                $wp_query = $temp;
+            }
+            else{
+                ?>
+                    <span class="regular-text"><br/>Please assign a `Type` to this schedule and save to see this option.</span>
+                <?php
+            }
         }
         
         if( $echo == true ){
