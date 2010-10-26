@@ -21,10 +21,11 @@ class PmcSkejoolAdminOptionsController {
     }
 
     public function activate_options(){
+        $related_post_taxonomies = array( '');
         $options = array(
             'version' => 1.0,
             'active' => true,
-            'related_post_taxonomies' => array( array( 'taxonomy' => array( '' ), 'associated_category' => array( '' ) ) )
+            'related_post_taxonomies' => array( 'taxonomy' => array( 0 ), 'associated_category' => array( 0 )  )
             );
         update_option( 'pmc_skejool_options', $options );
     }
