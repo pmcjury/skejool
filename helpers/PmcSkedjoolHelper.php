@@ -99,10 +99,14 @@ function display_schedule_as_divs( $schedule, $args = array( ) ){
     </div>
     <?php
 }
+function get_match_report_link( $game, $record ){
+   if( is_game_played( $game->away_team_score, $game->home_team_score, $game->date ) && !empty( $game->related_post ) ){
+        echo '<a href="' . $game->related_post . '" title="Match Report &raquo;" >Match Report &raquo;</a>';
+   }
+}
 function get_record( $game, $record ){
     if( is_game_played( $game->away_team_score, $game->home_team_score, $game->date ) ){
         echo $s = $game->type != 'Friendly' ? $record['wins'] . ' - ' . $record['losses'] . ' - ' . $record['draws'] : 'Friendly';
-        echo '<a href="' . $game->related_post . '" title="Match Report &raquo;" >Match Report &raquo;</a>';
     }
 }
 function get_venue_link( $url ){
