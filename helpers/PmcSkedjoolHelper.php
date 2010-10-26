@@ -88,6 +88,9 @@ function display_schedule_as_divs( $schedule, $args = array( ) ){
                     <div class="schedule_game_result">
                         <?php get_record( $game, $record );?>
                     </div>
+                    <div>
+                        <?php //if( is_game_played($score_1, $score_2, $game_date)?>
+                    </div>
                     <div class="clear"></div>
                 </div>
                  <div class="clear"></div>
@@ -99,6 +102,7 @@ function display_schedule_as_divs( $schedule, $args = array( ) ){
 function get_record( $game, $record ){
     if( is_game_played( $game->away_team_score, $game->home_team_score, $game->date ) ){
         echo $s = $game->type != 'Friendly' ? $record['wins'] . ' - ' . $record['losses'] . ' - ' . $record['draws'] : 'Friendly';
+        echo '<a href="' . $game->related_post . '" title="Match Report &raquo;" >Match Report &raquo;</a>';
     }
 }
 function get_venue_link( $url ){
