@@ -25,7 +25,7 @@ class PmcSkejoolAdminOptionsController {
         $options = array(
             'version' => 1.0,
             'active' => true,
-            'related_post_taxonomies' => array( 'taxonomy' => array( 0 ), 'associated_category' => array( 0 )  )
+            'related_post_taxonomies' => array( 'taxonomy' => array( 0, 0, 0 ), 'associated_category' => array( 0, 0, 0 )  )
             );
         update_option( 'pmc_skejool_options', $options );
     }
@@ -57,7 +57,7 @@ class PmcSkejoolAdminOptionsController {
                 switch( $key ){
                     case 'related_post_taxonomies':
                         ?>
-                        <input type="button" class="button-secondary" value="+ Add" id="add_tax_cat"/>
+                    <input type="button" class="button-secondary" value="+ Add" id="add_tax_cat" style="display:none;"/>
                         <?php
                         $i = 0;
                         foreach( $value['taxonomy'] as $tax => $cat ) :
@@ -160,7 +160,7 @@ class PmcSkejoolAdminOptionsHelper{
 
     public function get_taxonomy_term_display( $index ){
         if( !isset( $this->taxonomy_terms ) ){
-            $this->taxonomy_terms = get_terms( 'schedule_type' );
+            $this->taxonomy_terms = get_terms( 'schedule_type', array( 'hide_empty' => false ) );
         }
         $tax_term = $this->taxonomy_terms[$index];
         ?>
@@ -171,7 +171,7 @@ class PmcSkejoolAdminOptionsHelper{
     }
 
     public function get_taxonomy_drop_down( $value ){
-        $this->get_a_drop_down( get_terms( 'schedule_type'), 'taxonomy', $value );
+        $this->get_a_drop_down( get_terms( 'schedule_type', array( 'hide_empty' => false ) ), 'taxonomy', $value );
     }
 
     public function get_associated_category_drop_down( $value ){
