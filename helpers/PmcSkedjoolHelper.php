@@ -89,7 +89,7 @@ function display_schedule_as_divs( $schedule, $args = array( ) ){
                         <?php get_record( $game, $record );?>
                     </div>
                     <div>
-                        <?php //if( is_game_played($score_1, $score_2, $game_date)?>
+                        <?php get_match_report_link( $game, $record ); ?>
                     </div>
                     <div class="clear"></div>
                 </div>
