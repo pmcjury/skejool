@@ -10,6 +10,7 @@
  *
  * @author pmcjury
  */
+include_once PMC_SKEJOOL_CONTROLLERS_DIR . '/admin/PmcSkejoolAdminOptionsController.php';
 include_once PMC_SKEJOOL_MODELS_DIR . '/ScheduleGameData.php';
 
 class PmcSkedjoolAdminController{
@@ -22,10 +23,17 @@ class PmcSkedjoolAdminController{
     public function __construct(){
         $this->game_input_fields = ScheduleGame::$game_input_fields;
         $this->load_css();
+        $options_controller = new PmcSkejoolAdminOptionsController();
+        add_action( 'admin_init', array ( &$options_controller, 'options_init') );
         add_action( 'admin_init', array( &$this, 'load_js' ) );
         add_action( 'admin_init', array( &$this, 'load_css' ) );
         add_action( 'admin_menu', array( &$this, 'create_games_meta_box' ) );
+        add_action( 'admin_menu', array ( &$this, 'add_admin_menu') );
         add_action( 'save_post', array( &$this, 'save_games_meta_box' ) );
+    }
+
+    public function add_admin_menu(){
+        add_options_page( 'Schedule Settings', "Schedule", 8, 'pmc_skejool_options_settings', array ( 'PmcSkejoolAdminOptionsController', 'show_options_page' ) );
     }
 
     public function load_css(){
@@ -60,6 +68,7 @@ class PmcSkedjoolAdminController{
         $data = get_post_meta( $post->ID, $this->key, true );
         $schedule = new ScheduleGameData( $data );
         include_once PMC_SKEJOOL_HELPERS_DIR . '/admin/PmcSkedjoolAdminHelper.php';
+        $helper = new PmcSkedjoolAdminHelper();
         include_once PMC_SKEJOOL_VIEWS_DIR . '/admin/index.php';
     }
 

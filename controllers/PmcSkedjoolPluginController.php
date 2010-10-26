@@ -5,32 +5,31 @@
  *
  * @author pmcjury
  */
+
+include_once PMC_SKEJOOL_CONTROLLERS_DIR . '/admin/PmcSkejoolAdminOptionsController.php';
+
 class PmcSkedjoolPluginController{
 
     public function __construct(){
-
+   
     }
 
     public static function activate(){
-        pmc_log( "Activating..." );
-        self::add_options();
+        error_log('ssss');
+        $options_controller = new PmcSkejoolAdminOptionsController();
+        $options_controller->activate_options();
     }
 
     public static function deactivate(){
-        pmc_log( "Deactivating..." );
+        global $pmc_skejool_options;
         $pmc_skejool_options['active'] = false;
         update_option( 'pmc_skejool_options', $pmc_skejool_options );
     }
 
     public static function uninstall(){
         pmc_log( "Uninstalling..." );
-        global $wpdb;
-        delete_option( 'pmc_skejool_options' );
-    }
-
-    private static function add_options(){
-        pmc_log( "Adding Options..." );
-        add_option( 'pmc_skejool_options', array( 'active' => true ) );
+        $options_controller = new PmcSkejoolAdminOptionsController();
+        $options_controller->delete_options();
     }
 
     public static function register_skejool_post_types(){

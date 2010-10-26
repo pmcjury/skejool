@@ -73,7 +73,7 @@
                         <td>
                             <label for="pmc_schedule_data_related_post" ><strong>Link URL </strong></label>
                              <br/>
-                            <?php get_posts_drop_down( $game->related_post ); ?>
+                            <?php $helper->get_posts_drop_down( array( 'value' => $game->related_post ) ); ?>
                         </td>
                     </tr>
             <?php endforeach; else : ?>
@@ -117,7 +117,7 @@
                         <td >
                             <label for="pmc_schedule_data_related_post" ><strong>Link URL </strong></label>
                              <br/>
-                            <?php get_posts_drop_down(); ?>
+                            <?php $helper->get_posts_drop_down(); ?>
                         </td>
                     </tr>
                 <?php endif; ?>

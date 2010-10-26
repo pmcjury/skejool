@@ -11,7 +11,6 @@
 // Init Checks
 define( 'PMC_SKEJOOL_DEBUG', false );
 include_once dirname( __FILE__ ) . '/includes' . '/wp_plugin_helpers.php';
-pmc_log( 'starting plugin...' );
 pmc_check_direct_file_call( basename( __FILE__ ) );
 if( !pmc_check_wp_version( 'Skejool' ) ){
     return;
@@ -26,15 +25,9 @@ else{
     define( 'PMC_SKEJOOL_HELPERS_DIR', dirname( __FILE__ ) . '/helpers' );
     define( 'PMC_SKEJOOL_MODELS_DIR', dirname( __FILE__ ) . '/models' );
     define( 'PMC_SKEJOOL_VIEWS_DIR', dirname( __FILE__ ) . '/views' );
-    // Get the options options
-    $pmc_skejool_options = get_option( 'pmc_skejool_options' );
-    pmc_log(print_r($pmc_skejool_options, true));
-    // Some constants to only define if we're active, lets be efficient
-    define( 'PMC_SKEJOOL_ACTIVE', empty( $pmc_skejool_options['active'] ) ? false : $pmc_skejool_options['active'] );
     define( 'PMC_SKEJOOL_PLUGIN_BASENAME', PMC_SKEJOOL_BASE_DIR . '/Skejool.php' );
+    $pmc_skejool_options = get_option( 'pmc_skejool_options' );
     // Init the plugin
-    pmc_log( 'Active : ' . PMC_SKEJOOL_ACTIVE );
-    pmc_log( PMC_SKEJOOL_PLUGIN_BASENAME );
     include_once PMC_SKEJOOL_BASE_DIR . '/PmcSkedjoolController.php';
     $controller = new PmcSkedjoolController();
 }
