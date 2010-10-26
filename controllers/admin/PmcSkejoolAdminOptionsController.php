@@ -63,32 +63,50 @@ class PmcSkejoolAdminOptionsController {
                         foreach( $value['taxonomy'] as $tax => $cat ) :
                         ?>
                         <div class="tax_cat">
-                            <?php $helper->get_taxonomy_drop_down( $value['taxonomy'][$i] ) ;?>
+                            <?php $helper->get_taxonomy_term_display( $i ); ?>
+                            <?php //$helper->get_taxonomy_drop_down( $value['taxonomy'][$i] ) ;?>
                             <?php $helper->get_associated_category_drop_down( $value['associated_category'][$i] ) ;?>
-                            <?php if( $i != 0 ) : ?>
-                                <a href="#" class="remove_tax_cat">remove</a>
-                            <?php endif; ?>
+                            <a href="#" class="remove_tax_cat">remove</a>
                         </div>
+                     
                         <?php
                             $i++;
                         endforeach;
                         ?>
+                            <span class="description" id="error_message" style="color:#c00; display: none;">Only One mapping per Taxonomy Term. Also can only map the max number of terms.</span>
                             <script type="text/javascript">
                             (function($){
                                 $(document).ready(function(){
+                                    $.max_tax_cat = $('.taxonomy_dd:first').children().length;
                                     $('#add_tax_cat').click(function(e){
-                                        var orig = $('div.tax_cat:last');
-                                        console.log(orig);
-                                        var clone = orig.clone();
-                                        clone.children().each(function(e){
-                                            $(this).val('');
-                                        });
-                                        orig.after(clone);
+                                        if( $('div.tax_cat').length <  $.max_tax_cat ){
+                                            var orig = $('div.tax_cat:last');
+                                            var clone = orig.clone(true);
+                                            clone.children().each(function(e){
+                                                if($(this).is('a')){
+                                                    $(this).css('display', '');
+                                                }
+                                                else{
+                                                    $(this).val('');
+                                                }
+                                            });
+                                            clone.css('display', 'none');
+                                            orig.after(clone);
+                                            clone.fadeIn();
+                                            $('#error_message').hide();
+                                        }
+                                        else{
+                                            $('#error_message').fadeIn();
+                                        }
                                     });
                                     $('a.remove_tax_cat').click(function(e){
-                                        $(this).parent().remove();
+                                        $(this).parent().fadeOut(250, function(e){
+                                            $(this).remove();
+                                        });
+                                        $('#error_message').hide();
                                         return false;
                                     });
+                                    $('a.remove_tax_cat:first').css('display', 'none');
                                 });
                             })(jQuery);
                             </script>
@@ -128,6 +146,9 @@ class PmcSkejoolAdminOptionsController {
 }
 
 class PmcSkejoolAdminOptionsHelper{
+
+    private $taxonomy_terms;
+    
     public function __construct(){
 
     }
@@ -135,6 +156,18 @@ class PmcSkejoolAdminOptionsHelper{
     public function get_option_description( $key ){
         $description = ucwords( str_replace('_', ' ', $key ) );
         return $description;
+    }
+
+    public function get_taxonomy_term_display( $index ){
+        if( !isset( $this->taxonomy_terms ) ){
+            $this->taxonomy_terms = get_terms( 'schedule_type' );
+        }
+        $tax_term = $this->taxonomy_terms[$index];
+        ?>
+           <label>Schedule Type</label>
+           <input type="text" value="<?php echo $tax_term->name ; ?>" disabled/>
+           <input type="hidden" name="pmc_skejool_options[related_post_taxonomies][taxonomy][]" value="<?php echo $tax_term->term_id ; ?>" />
+        <?php
     }
 
     public function get_taxonomy_drop_down( $value ){
@@ -148,7 +181,7 @@ class PmcSkejoolAdminOptionsHelper{
     private function get_a_drop_down( $values, $key, $value ){
         ?>
         <label><?php echo $this->get_option_description($key); ?></label>
-        <select name="pmc_skejool_options[related_post_taxonomies][<?php echo $key; ?>][]">
+        <select class="<?php echo $key; ?>_dd" name="pmc_skejool_options[related_post_taxonomies][<?php echo $key; ?>][]">
         <?php
         foreach( $values as $val ){
             $v = '';
