@@ -24,7 +24,7 @@ class PmcSkejoolAdminOptionsController {
         $options = array(
             'version' => 1.0,
             'active' => true,
-            'related_post_taxonomies' => array( array( 'taxonomy' => '', 'associated_category' => ''  ) )
+            'related_post_taxonomies' => array( array( 'taxonomy' => array( '' ), 'associated_category' => array( '' ) ) )
             );
         update_option( 'pmc_skejool_options', $options );
     }
