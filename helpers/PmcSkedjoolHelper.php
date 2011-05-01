@@ -106,8 +106,11 @@ function get_match_report_link( $game, $record ){
 }
 function get_record( $game, $record ){
     if( is_game_played( $game->away_team_score, $game->home_team_score, $game->date ) ){
-        echo $s = $game->type != 'Friendly' ? $record['wins'] . ' - ' . $record['losses'] . ' - ' . $record['draws'] : 'Friendly';
+        $s = $game->type != 'Friendly' ? $record['wins'] . ' - ' . $record['losses'] . ' - ' . $record['draws'] : 'Friendly';
     }
+    $is_b_game_only = $game->type == 'Friendly' &&  ( stristr( $game->home_team, 'vlrfc b' ) || stristr( $game->home_team, 'vlrfc b' ) );
+    $s .= $is_b_game_only ? ' (B Side Only)' : '';
+    echo $s;
 }
 function get_venue_link( $url ){
     ?>
