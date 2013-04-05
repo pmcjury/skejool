@@ -29,7 +29,7 @@
                         <td>
                             <label for="pmc_schedule_data_date" ><strong>Date </strong></label>
                             <br/>
-                            <input type="text" name="pmc_schedule_data_date[]" value="<?php echo htmlspecialchars( $game->date ); ?>" maxlength="8" size="8" class="date_picker" />
+                            <input type="text" name="pmc_schedule_data_date[]" value="<?php echo htmlspecialchars( $game->date ); ?>" maxlength="14" size="14" class="date_picker" />
                             <div class="row-actions"><a href="#" class="remove">Remove Game</a></div>
                         </td>
                         <td>
