@@ -207,7 +207,7 @@ class PmcSkedjoolHelper{
             $format .= 'h:i A';
         }
         else{
-            $game_date_time =  $game->date
+            $game_date_time =  $game->date;
         }
         echo date( $format, strtotime( $game_date_time ) ) ;
     }
