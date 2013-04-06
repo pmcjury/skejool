@@ -10,7 +10,7 @@
  */
 // Init Checks
 
-define( 'PMC_SKEJOOL_DEBUG', true );
+define( 'PMC_SKEJOOL_DEBUG', false );
 if( PMC_SKEJOOL_DEBUG === true ){
   error_reporting( E_ALL & ~E_WARNING & ~E_NOTICE );
   ini_set('display_errors', 1);
