@@ -103,6 +103,7 @@
                                 $(e).datetimepicker({
                                     altField: "#" + me.generate_time_picker_id(),
                                     hour : 13,
+                                    defaultValue : 13,
                                     numberOfMonths: 1,
                                     showButtonPanel: true
                                 });
