@@ -85,6 +85,8 @@ class PmcSkedjoolAdminController{
         if( function_exists( 'add_meta_box' ) ){
             add_meta_box( 'new-meta-boxes', $this->title, array( &$this, 'display_games_meta_box' ), $this->post_type, 'normal', 'high' );
         }
+        remove_meta_box( 'postexcerpt', $this->post_type, 'normal' );
+        remove_meta_box( 'postcustom', $this->post_type, 'normal' );
     }
 
     public function display_games_meta_box(){

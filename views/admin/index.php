@@ -83,13 +83,10 @@
             <?php endforeach; ?>
         </tbody>
     </table>
-    <div id="dialog-message" title="Duh!" style="display:none;">
-      <p>
-        <span class="ui-icon ui-icon-circle-check" style="float: left; margin: 0 7px 50px 0;"></span>
-        You need at least one game on the schedule.
-      </p>
-      <p>
-        Currently you have 0!
+    <div id="dialog-message" title="Duh!" style="display:none;" >
+      <p class="ui-state-error">
+        <span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 10px 0;"></span>
+        <strong>Duh!</strong> You need at least one game on the schedule.
       </p>
     </div>
             <script type="text/javascript" >
@@ -141,6 +138,7 @@
                                 var me = this;
                                 $(me._dialogSelector).dialog({
                                   modal: true,
+                                  resizable: false,
                                   buttons: {
                                     Close: function() {
                                       $( this ).dialog( "close" );
