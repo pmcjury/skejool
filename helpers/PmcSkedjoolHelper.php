@@ -189,8 +189,8 @@ function get_win_loss_or_draw( $game, $record ){
   
     return $record;
 }
-function get_game_date( $date, $format = 'l, m/d' ){
-   echo date( $format, strtotime( $date ) ) . ' at 1:00pm EDT ';
+function get_game_date( $date, $time,  $format = 'l, m/d' ){
+   echo date( $format, strtotime( $date ) ) . ' at ' $time . ;
 }
 function get_vlrfc_opponent( $game ){
     $is_home = stristr( $game->home_team, 'vlrfc' );

@@ -1,4 +1,4 @@
-<?php
+s<?php
 /* 
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -10,8 +10,21 @@
  * @author pmcjury
  */
 class PmcSkedjoolFrontController {
+
+	private static $instance = null;
+
+    public static function create(){
+        if( self::$instance == null ){
+            self::$instance = new PmcSkedjoolFrontController();
+        }
+        return self::$instance;
+    }
+
+    public static function getInstance(){
+        return self::$instance;
+    }
     //put your code here
-    public function __construct(){
+    private function __construct(){
         //add_action();
         $this->load_css();
     }
@@ -21,4 +34,3 @@ class PmcSkedjoolFrontController {
         wp_enqueue_style( 'pmc_skejool' );
     }
 }
-?>

@@ -11,10 +11,22 @@
  */
 class PmcSkejoolAdminOptionsController {
 
-    public function __construct(){
+    private static $instance = null;
 
+    public static function create(){
+        if( self::$instance == null ){
+            self::$instance = new PmcSkejoolAdminOptionsController();
+        }
+        return self::$instance;
     }
 
+    public static function getInstance(){
+        return self::$instance;
+    }
+
+    private function __construct(){
+
+    }
 
     public function delete_options(){
         delete_option( 'pmc_skejool_options' );
@@ -207,4 +219,3 @@ class PmcSkejoolAdminOptionsHelper{
         <?php
     }
 }
-?>

@@ -11,7 +11,20 @@ require_once PMC_SKEJOOL_CONTROLLERS_DIR . '/PmcSkedjoolPluginController.php';
 
 class PmcSkedjoolController{
 
-    public function __construct(){
+    private static $instance = null;
+
+    public static function create(){
+        if( self::$instance == null ){
+            self::$instance = new PmcSkedjoolController();
+        }
+        return self::$instance;
+    }
+
+    public static function getInstance(){
+        return self::$instance;
+    }
+
+    private function __construct(){
         global $pmc_skejool_options;
         $this->register_default_hooks();
         // call init actions needed for both admin and the front end
@@ -19,13 +32,13 @@ class PmcSkedjoolController{
         // Delegate Control
         if( is_admin( ) ){
             include_once ( PMC_SKEJOOL_CONTROLLERS_DIR . '/admin/PmcSkedjoolAdminController.php' );
-            $admin = new PmcSkedjoolAdminController();
+            PmcSkedjoolAdminController::create();
         }
         else{
             include_once ( PMC_SKEJOOL_CONTROLLERS_DIR . '/PmcSkedjoolFrontController.php' );
             include_once PMC_SKEJOOL_MODELS_DIR . '/ScheduleGameData.php';
             include_once PMC_SKEJOOL_HELPERS_DIR . '/PmcSkedjoolHelper.php';
-            $app = new PmcSkedjoolFrontController();
+            PmcSkedjoolFrontController::create();
         }
     }
 

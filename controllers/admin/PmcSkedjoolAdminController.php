@@ -19,14 +19,27 @@ class PmcSkedjoolAdminController{
     public $title = 'Games';
     public $post_type = 'schedules';
     public $game_input_fields = array( );
+    
+    private static $instance = null;
 
-    public function __construct(){
+    public static function create(){
+        if( self::$instance == null ){
+            self::$instance = new PmcSkedjoolAdminController();
+        }
+        return self::$instance;
+    }
+
+    public static function getInstance(){
+        return self::$instance;
+    }
+
+    private function __construct(){
         $this->game_input_fields = ScheduleGame::$game_input_fields;
         $this->load_css();
-        $options_controller = new PmcSkejoolAdminOptionsController();
+        $options_controller = PmcSkejoolAdminOptionsController::create();
         add_action( 'admin_init', array ( &$options_controller, 'options_init') );
-        add_action( 'admin_init', array( &$this, 'load_js' ) );
-        add_action( 'admin_init', array( &$this, 'load_css' ) );
+        add_action( 'admin_enqueue_scripts', array( &$this, 'load_js' ) );
+        add_action( 'admin_enqueue_scripts', array( &$this, 'load_css' ) );
         add_action( 'admin_menu', array( &$this, 'create_games_meta_box' ) );
         add_action( 'admin_menu', array ( &$this, 'add_admin_menu') );
         add_action( 'save_post', array( &$this, 'save_games_meta_box' ) );
@@ -37,13 +50,24 @@ class PmcSkedjoolAdminController{
     }
 
     public function load_css(){
-        wp_register_style( 'jquery-ui-datepicker-smoothness', '/' . PLUGINDIR . '/skejool/views/admin/jquery-ui-1.7.3.custom/css/smoothness/jquery-ui-1.7.3.custom.css' );
-        wp_enqueue_style( 'jquery-ui-datepicker-smoothness' );
+        wp_register_style('jquery-ui', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/smoothness/jquery-ui.css');
+        wp_enqueue_style( 'jquery-ui' );        
+        wp_register_style( 'jquery-ui-timepicker-addon', '/' . PLUGINDIR . '/skejool/views/admin/css/jquery-ui-timepicker-addon.css' );
+        wp_enqueue_style( 'jquery-ui-timepicker-addon' );
     }
 
     public function load_js(){
         wp_deregister_script( 'autosave' );
-        wp_enqueue_script( 'jquery-ui-date-picker', '/' . PLUGINDIR . '/skejool/views/admin/jquery-ui-1.7.3.custom/js/jquery-ui-1.7.3.custom.min.js', array( ), false, true ); // in the footer last param == true
+        wp_enqueue_script( 'jquery' );
+        wp_enqueue_script( 'jquery-ui-core' );
+        wp_enqueue_script( 'jquery-ui-datepicker');
+        wp_enqueue_script( 'jquery-ui-slider' );
+        wp_enqueue_script( 'jquery-effects-core');
+        wp_enqueue_script( 'jquery-effects-highlight');
+        wp_enqueue_script( 'jquery-ui-dialog' );
+        wp_register_script( 'jquery-ui-timepicker-addon', '/' . PLUGINDIR . '/skejool/views/admin/js/jquery-ui-timepicker-addon.js',
+        array('jquery','jquery-ui-core', 'jquery-ui-datepicker' ), '1.2', true);
+        wp_enqueue_script(  'jquery-ui-timepicker-addon');
     }
 
     public function save_games_meta_box( $post_id ){

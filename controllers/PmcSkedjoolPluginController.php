@@ -15,8 +15,7 @@ class PmcSkedjoolPluginController{
     }
 
     public static function activate(){
-        error_log('ssss');
-        $options_controller = new PmcSkejoolAdminOptionsController();
+        $options_controller = PmcSkejoolAdminOptionsController::create();
         $options_controller->activate_options();
     }
 
@@ -28,7 +27,7 @@ class PmcSkedjoolPluginController{
 
     public static function uninstall(){
         pmc_log( "Uninstalling..." );
-        $options_controller = new PmcSkejoolAdminOptionsController();
+        $options_controller = PmcSkejoolAdminOptionsController::create();
         $options_controller->delete_options();
     }
 
