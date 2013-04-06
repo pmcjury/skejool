@@ -201,8 +201,15 @@ class PmcSkedjoolHelper{
         return $record;
     }
     
-    public static function get_game_date( $game,  $format = 'l, m/d h:i A' ){
-       echo date( $format, strtotime( $game->date . ' ' . $game->time ) ) ;
+    public static function get_game_date( $game,  $format = 'l, m/d ' ){
+        if( !empty($game->time) ){ // for backward compatability
+            $game_date_time =  $game->date . ' ' . $game->time;
+            $format .= 'h:i A';
+        }
+        else{
+            $game_date_time =  $game->date
+        }
+        echo date( $format, strtotime( $game_date_time ) ) ;
     }
     
     public static function get_vlrfc_opponent( $game ){
